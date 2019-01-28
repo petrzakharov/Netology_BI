@@ -1,52 +1,58 @@
 CREATE TABLE
 films (
-    title VARCHAR (25), 
-    id SERIAL,
-    country VARCHAR (25),
-    box_office BIGINT,
-    release_year TIMESTAMP
+    name VARCHAR (355),
+    id serial PRIMARY KEY,
+    country VARCHAR (355),
+    box_office INT,
+    year INT
 );
 
-INSERT INTO films
-    VALUES ('Начало',1,'США', 825532764, '2003-7-8'::timestamp),
-    ('Побег из Шоушенка',1,'США', 59841469, '1994-9-10'::timestamp);
 
-UPDATE films 
-SET id=2
-WHERE title = 'Побег из Шоушенка';
+INSERT INTO
+    films
+VALUES
+    ('The Shawshank Redemption', 0001, 'USA', 59841469, 1994),
+    ('The Green Mile', 0002, 'USA', 286801374, 1999),
+    ('Forrest Gump', 0003, 'USA', 677386686, 1994),
+    ('Schindlers List', 0004, 'USA', 321265768, 1993),
+    ('Intouchables', 0005, 'France', 426588510, 2011);
 
-INSERT INTO films
-    VALUES ('Список Шиндлера',3,'США', 321265768, '1993-11-30'::timestamp),
-    ('1+1',4,'Франция', 426588510, '2011-9-23'::timestamp),
-    ('Бойцовский клуб',5,'США-Германия', 100853753, '1999-9-10'::timestamp);
+
 
 CREATE TABLE
 persons (
-    id INT, -- соответствует person_id в табличке persons2content
-    fio VARCHAR (50)
+name_surname VARCHAR (355),
+    id serial PRIMARY KEY
 );
 
-INSERT INTO persons
-    VALUES (12,'Дэвид Финчер'),
-    (13,'Тим Роббинс'),
-    (14,'Стивен Сбилберг'),
-    (15,'Омар Си'),
-    (16,'Брэд Питт');
 
-SELECT * FROM persons;
+);
+INSERT INTO
+    persons
+VALUES
+('Тим Роббинс', 1001),
+('Том Хэнкс',2002),
+('Роберт Земекис',3003),
+('Стивен Спилберг',4004),
+('Омар Си',5005);
 
 
 CREATE TABLE
 persons2content (
-    person_id INT, -- id персоны
-    film_id INT, -- id контента
-    person_type VARCHAR (50) -- тип персоны (актёр, режиссёр и т.д.)
-
+    id_persons INT,
+    id_content INT,
+    person_type VARCHAR (355),
+    FOREIGN KEY (id_persons)
+    REFERENCES persons (id),
+    FOREIGN KEY (id_content)
+    REFERENCES films (id)
 );
-
-INSERT INTO persons2content
-    VALUES (12,1,'режисёр'),
-    (13,2,'актёр'),
-    (14,3,'режисёр'),
-    (15,4,'актёр'),
-    (16,5,'актёр');
+     
+INSERT INTO
+    persons2content
+VALUES
+(1001, 0001, 'actor'),
+(2002, 0002, 'actor'),
+(3003, 0003, 'producer'),
+(4004, 0004, 'producer'),
+(5005, 0005, 'actor');
